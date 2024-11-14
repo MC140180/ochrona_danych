@@ -1,4 +1,11 @@
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function sortWordsByLetterA_ASC(decryptedWords) {
+  return  decryptedWords.sort((a, b) => {
+    const countA = a.split('').filter(letter => letter === 'A').length;
+    const countB = b.split('').filter(letter => letter === 'A').length;
+    return countB - countA;
+});
+}
 
 function encodeCeasar(word, shiftNumber) {
     return word.toUpperCase().split('').map((element) => {
@@ -15,7 +22,7 @@ function decodeCeasar(word, shiftNumber){
         if(alphabet.indexOf(element)=== -1) {
           return element
         }
-      return alphabet.split('').at([alphabet.indexOf(element)-shiftNumber])
+      return alphabet.split('').at((alphabet.indexOf(element)-shiftNumber)+26 %26)
     }).join('');
 }
 
@@ -39,7 +46,7 @@ function decodeVigenere(word, key){
         if(alphabet.indexOf(element) === -1) {
           return element
         }
-      return alphabet.split('').at((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length])))
+      return alphabet.split('').at(((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length]))+26) %26)
     }).join('')
     ;
 }
@@ -48,28 +55,13 @@ function breakTheCode(word, recordsNumber) {
   word = word.toUpperCase();
   let decryptedWords = [''];
   for (let i = 0; i < 26; i++) {
-      const decryptedWord = word.split('').map(sign => {
-        if(alphabet.indexOf(sign)=== -1) {
-          return sign
-        }
-          return alphabet[(alphabet.indexOf(sign) - i + 26) % 26];
-      });
-
-      const aCount = decryptedWord.filter(letter => letter === 'A').length;
-      if (aCount >=  1) {
-          decryptedWords.push(decryptedWord.join(''));
-      }
-
-      decryptedWords.sort((a, b) => {
-        const countA = a.split('').filter(letter => letter === 'A').length;
-        const countB = b.split('').filter(letter => letter === 'A').length;
-        return countB - countA;
-    });
+      const decryptedWord = decodeCeasar(word, i)
+      decryptedWords.push(decryptedWord)
+      decryptedWords = sortWordsByLetterA_ASC(decryptedWords)
   }
   
   return decryptedWords.slice(0, recordsNumber);
 }
-
 
 
 console.log(encodeCeasar('michal czyrak', 140180 % 26))
