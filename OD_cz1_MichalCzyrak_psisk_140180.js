@@ -1,7 +1,7 @@
 function encodeCeasar(word, shiftNumber) {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   
-    return word.trim().toUpperCase().split('').map((element) => {
+    return word.toUpperCase().split('').map((element) => {
         const index = alphabet.indexOf(element);
         
         if (index !== -1) {
@@ -15,8 +15,7 @@ function encodeCeasar(word, shiftNumber) {
 function decodeCeasar(word, shiftNumber){
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    word = word.toUpperCase()
-    return word.split('').map((element) => {
+    return word.toUpperCase().split('').map((element) => {
       const ix = alphabet.indexOf(element);
       if(ix === -1) {
         return element
@@ -27,11 +26,9 @@ function decodeCeasar(word, shiftNumber){
 
 function encodeVigenere(word, key){
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    key = key.toUpperCase()
 
-    word = word.toUpperCase()
-    key= key.toUpperCase()
-
-    return word.split('').map((element, index) => {
+    return word.toUpperCase().split('').map((element, index) => {
             const shift = (alphabet.indexOf(element) + alphabet.indexOf(key[index % key.length])) % 26;
             const ix = alphabet.indexOf(element);
             if(ix === -1) {
@@ -43,11 +40,9 @@ function encodeVigenere(word, key){
 
 function decodeVigenere(word, key){
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    key = key.toUpperCase()
 
-    word = word.toUpperCase()
-    key= key.toUpperCase()
-
-    return word.split('').map((element, index) => {
+    return word.toUpperCase().split('').map((element, index) => {
       const ix = alphabet.indexOf(element);
       if(ix === -1) {
         return element
