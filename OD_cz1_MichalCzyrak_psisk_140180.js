@@ -9,10 +9,10 @@ function sortWordsByLetterA_ASC(decryptedWords) {
 
 function encodeCeasar(word, shiftNumber) {
     return word.toUpperCase().split('').map((element) => {
-        if (alphabet.indexOf(element) !== -1) {
-            return alphabet[(alphabet.indexOf(element) + shiftNumber) % 26];
+        if (alphabet.indexOf(element) === -1) {
+          return element; 
         }
-        return element; 
+        return alphabet[(alphabet.indexOf(element) + shiftNumber) % 26];
         
     }).join('');
 }
@@ -22,7 +22,7 @@ function decodeCeasar(word, shiftNumber){
         if(alphabet.indexOf(element)=== -1) {
           return element
         }
-      return alphabet.split('').at((alphabet.indexOf(element)-shiftNumber)+26 %26)
+      return alphabet[((alphabet.indexOf(element)-shiftNumber)+26) %26]
     }).join('');
 }
 
@@ -46,7 +46,7 @@ function decodeVigenere(word, key){
         if(alphabet.indexOf(element) === -1) {
           return element
         }
-      return alphabet.split('').at(((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length]))+26) %26)
+      return alphabet[((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length]))+26) %26]
     }).join('')
     ;
 }
@@ -70,6 +70,7 @@ console.log(encodeVigenere('michal czyrak', 'rune'))
 console.log(decodeVigenere(encodeVigenere('michal czyrak', 'rune'), 'rune'))
 
 console.log(breakTheCode(encodeCeasar('Jasny ksiezyc odbijal sie w tafli jeziora, a wokol panowala cisza przerywana jedynie szelestem lisci poruszanych delikatnym wiatrem', 140180 % 26),10))
+
 
 
 
