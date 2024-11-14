@@ -3,12 +3,11 @@ function encodeCeasar(word, shiftNumber) {
   
     return word.toUpperCase().split('').map((element) => {
         const index = alphabet.indexOf(element);
-        
         if (index !== -1) {
             return alphabet[(index + shiftNumber) % 26];
-        } else {
-            return element; 
         }
+        return element; 
+        
     }).join('');
 }
 
@@ -17,9 +16,9 @@ function decodeCeasar(word, shiftNumber){
 
     return word.toUpperCase().split('').map((element) => {
       const ix = alphabet.indexOf(element);
-      if(ix === -1) {
-        return element
-      }
+        if(ix === -1) {
+          return element
+        }
       return alphabet.split('').at([alphabet.indexOf(element)-shiftNumber])
     }).join('');
 }
@@ -29,12 +28,12 @@ function encodeVigenere(word, key){
     key = key.toUpperCase()
 
     return word.toUpperCase().split('').map((element, index) => {
-            const shift = (alphabet.indexOf(element) + alphabet.indexOf(key[index % key.length])) % 26;
-            const ix = alphabet.indexOf(element);
+          const shift = (alphabet.indexOf(element) + alphabet.indexOf(key[index % key.length])) % 26;
+          const ix = alphabet.indexOf(element);
             if(ix === -1) {
               return element
             }
-            return alphabet[shift];
+          return alphabet[shift];
     }).join('');
 }
 
@@ -44,9 +43,9 @@ function decodeVigenere(word, key){
 
     return word.toUpperCase().split('').map((element, index) => {
       const ix = alphabet.indexOf(element);
-      if(ix === -1) {
-        return element
-      }
+        if(ix === -1) {
+          return element
+        }
       return alphabet.split('').at((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length])))
     }).join('')
     ;
@@ -57,9 +56,8 @@ function breakTheCode(word, recordsNumber) {
   word = word.toUpperCase();
   let decryptedWords = [''];
   for (let i = 0; i < 26; i++) {
-
       const decryptedWord = word.split('').map(sign => {
-        const ix = alphabet.indexOf(sign);
+      const ix = alphabet.indexOf(sign);
         if(ix === -1) {
           return sign
         }
