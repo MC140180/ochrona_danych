@@ -1,9 +1,14 @@
-function encodeCeasar(word, shiftNumber){
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-    word = word.toUpperCase()
-    return word.split('').map((element, index) => {
-      return alphabet[(alphabet.indexOf(element)+shiftNumber) % 26]
+function encodeCeasar(word, shiftNumber) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  
+    return word.trim().toUpperCase().split('').map((element) => {
+        const index = alphabet.indexOf(element);
+        
+        if (index !== -1) {
+            return alphabet[(index + shiftNumber) % 26];
+        } else {
+            return element; 
+        }
     }).join('');
 }
 
@@ -11,7 +16,11 @@ function decodeCeasar(word, shiftNumber){
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     word = word.toUpperCase()
-    return word.split('').map((element, index) => {
+    return word.split('').map((element) => {
+      const ix = alphabet.indexOf(element);
+      if(ix === -1) {
+        return element
+      }
       return alphabet.split('').at([alphabet.indexOf(element)-shiftNumber])
     }).join('');
 }
@@ -24,6 +33,10 @@ function encodeVigenere(word, key){
 
     return word.split('').map((element, index) => {
             const shift = (alphabet.indexOf(element) + alphabet.indexOf(key[index % key.length])) % 26;
+            const ix = alphabet.indexOf(element);
+            if(ix === -1) {
+              return element
+            }
             return alphabet[shift];
     }).join('');
 }
@@ -35,6 +48,10 @@ function decodeVigenere(word, key){
     key= key.toUpperCase()
 
     return word.split('').map((element, index) => {
+      const ix = alphabet.indexOf(element);
+      if(ix === -1) {
+        return element
+      }
       return alphabet.split('').at((alphabet.indexOf(element) - alphabet.indexOf(key[index % key.length])))
     }).join('')
     ;
@@ -42,10 +59,16 @@ function decodeVigenere(word, key){
 
 function breakTheCode(word, recordsNumber) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  word = word.trim().toUpperCase();
+  word = word.toUpperCase();
   let decryptedWords = [''];
   for (let i = 0; i < 26; i++) {
+
       const decryptedWord = word.split('').map(sign => {
+        const ix = alphabet.indexOf(sign);
+        if(ix === -1) {
+          return sign
+        }
+
           const newIndex = (alphabet.indexOf(sign) - i + 26) % 26; 
           return alphabet[newIndex];
       });
@@ -67,12 +90,12 @@ function breakTheCode(word, recordsNumber) {
 
 
 
-console.log(encodeCeasar('michalczyrak', 140180 % 26))
-console.log(decodeCeasar(encodeCeasar('michalczyrak', 140180 % 26), 140180 % 26))
-console.log(encodeVigenere('michalczyrak', 'rune'))
-console.log(decodeVigenere(encodeVigenere('michalczyrak', 'rune'), 'rune'))
+console.log(encodeCeasar('michal czyrak', 140180 % 26))
+console.log(decodeCeasar(encodeCeasar('michal czyrak', 140180 % 26), 140180 % 26))
+console.log(encodeVigenere('michal czyrak', 'rune'))
+console.log(decodeVigenere(encodeVigenere('michal czyrak', 'rune'), 'rune'))
 
-console.log(breakTheCode('Jasny ksiezyc odbijal sie w tafli jeziora, a wokol panowala cisza przerywana jedynie szelestem lisci poruszanych delikatnym wiatrem',10))
+console.log(breakTheCode(encodeCeasar('Jasny ksiezyc odbijal sie w tafli jeziora, a wokol panowala cisza przerywana jedynie szelestem lisci poruszanych delikatnym wiatrem', 140180 % 26),10))
 
 
 
