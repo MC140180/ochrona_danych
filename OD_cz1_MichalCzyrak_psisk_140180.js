@@ -3,8 +3,8 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 function sortWordsByLetterA_ASC(decryptedWords) {
   return  decryptedWords.sort((a, b) => {
-    const countA = a.split('').filter(letter => letter === 'A').length;
-    const countB = b.split('').filter(letter => letter === 'A').length;
+    const countA = a.split('').filter(letter => letter === 'E').length;
+    const countB = b.split('').filter(letter => letter === 'E').length;
     return countB - countA;
 });
 }
