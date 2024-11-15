@@ -1,7 +1,7 @@
 const readline = require('readline');
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-function sortWordsByLetterA_ASC(decryptedWords) {
+function sortWordsByLetterE_ASC(decryptedWords) {
   return  decryptedWords.sort((a, b) => {
     const countA = a.split('').filter(letter => letter === 'E').length;
     const countB = b.split('').filter(letter => letter === 'E').length;
